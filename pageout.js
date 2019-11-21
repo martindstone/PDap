@@ -1,5 +1,6 @@
 var default_incident_summary = "Please help with an incident";
-var service_id = 'PWL4NS7'
+var service_id = 'PWL4NS7';
+var subdomain = 'pdt-martindstone'
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -32,7 +33,10 @@ function requestOAuthToken() {
     window.localStorage.setItem('pdClientState', state);
     var clientId = "2e9de115bfae0ef0dff790aa06add1671932a7e311c1c5550aa26d951cfe150d";
     var redirectUri = "https://martindstone.github.io/PDap/index.html";
-    var oauthRoute = "https://app.pagerduty.com/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=token&state=" + state;
+    var oauthRoute = "https://app.pagerduty.com/oauth/authorize?client_id=" + clientId + 
+        "&redirect_uri=" + redirectUri + 
+        "&subdomain=" + subdomain +
+        "&response_type=token&state=" + state;
     window.location.href = oauthRoute;
 }
 
@@ -140,11 +144,11 @@ function fetch(token, endpoint, params, callback, progressCallback) {
 function createIncident() {
     var token = getToken();
     var incident_summary = "" +
-    $('#netsuite-link').val() +
+    "Netsuite Link: " + $('#netsuite-link').val() +
     "\n" +
-    $('#reason-text').val() +
+    "Reason:" + $('#reason-text').val() +
     "\n" +
-    $('#due-date').val();
+    "Needed by:" + $('#due-date').val();
 
     var body = {
         "incident": {
@@ -168,7 +172,7 @@ function createIncident() {
         contentType: "application/json",
         data: JSON.stringify(body),
         success: function(data) {
-            $('#result').append(`Created <a target="_blank" href="${data.incident.html_url}">Incident #${data.incident.incident_number}</a> for ${$('#user-select option:selected').text()}<br>`);
+            $('#result').append(`Created <a target="_blank" href="${data.incident.html_url}">Incident #${data.incident.incident_number}</a><br>`);
             console.log(data);
         },
         error: function(data) {
