@@ -160,15 +160,7 @@ function createIncident() {
             {
                 "type": "incident_body",
                 "details": incident_summary
-            },
-            "assignments": [
-                {
-                    "assignee": {
-                        "type": "user_reference",
-                        "id": user_id
-                    }
-                }
-            ]
+            }
         }
     };
 
