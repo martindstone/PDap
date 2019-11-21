@@ -1,4 +1,5 @@
 var default_incident_summary = "Please help with an incident";
+var service_id = 'PWL4NS7'
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -29,8 +30,8 @@ function generateRandomState(length) {
 function requestOAuthToken() {
     var state = generateRandomState(16);
     window.localStorage.setItem('pdClientState', state);
-    var clientId = "36020773f6d2beb61da826d31c4ac7ed9c761ed112e3282b56070013df8d8498";
-    var redirectUri = "https://martindstone.github.io/PDsimplepageout/index.html";
+    var clientId = "2e9de115bfae0ef0dff790aa06add1671932a7e311c1c5550aa26d951cfe150d";
+    var redirectUri = "https://martindstone.github.io/PDap/index.html";
     var oauthRoute = "https://app.pagerduty.com/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=token&state=" + state;
     window.location.href = oauthRoute;
 }
@@ -135,42 +136,20 @@ function fetch(token, endpoint, params, callback, progressCallback) {
     PDRequest(token, endpoint, "GET", options);
 }
 
-function populateUserSelect() {
-    var token = getToken();
-    fetch(token, 'users', null, function(data) {
-        data.forEach(function(user) {
-            $('#user-select').append($('<option/>', {
-                value: user.id,
-                text: user.summary
-            }));
-        });
-    });
-}
-
-function populateServiceSelect() {
-    var token = getToken();
-    fetch(token, 'services', null, function(data) {
-        data.forEach(function(service) {
-            $('#service-select').append($('<option/>', {
-                value: service.id,
-                text: service.summary
-            }));
-        });
-    });
-}
 
 function createIncident() {
     var token = getToken();
-    var user_id = $('#user-select').val();
-    var service_id = $('#service-select').val();
-    var incident_summary = $('#incident-text').val();
-    if ( incident_summary.trim() == "" ) {
-        incident_summary = default_incident_summary;
-    }
+    var incident_summary = ```
+    ${$('#netsuite-link').val()}
+
+    ${$('#reason-text').val()}
+
+    ${$('#due-date').val()}
+    ```
     var body = {
         "incident": {
             "type": "incident",
-            "title": incident_summary,
+            "title": "Attention needed: " + $('#netsuite-link').val(),
             "service":
             {
                 "id": service_id,
@@ -242,8 +221,6 @@ function main() {
     $('#login').hide();
 
     $('#incident-text').attr("placeholder", default_incident_summary);
-    populateUserSelect();
-    populateServiceSelect();
     $('#go').click(createIncident);
 }
 
