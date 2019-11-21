@@ -217,7 +217,7 @@ function main() {
     $('#incident-form').on('submit',function(e) {
         e.preventDefault();
         createIncident();
-    }
+    });
 
 }
 
