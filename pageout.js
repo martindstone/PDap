@@ -139,13 +139,13 @@ function fetch(token, endpoint, params, callback, progressCallback) {
 
 function createIncident() {
     var token = getToken();
-    var incident_summary = ```
-    ${$('#netsuite-link').val()}
+    var incident_summary = "" +
+    $('#netsuite-link').val() +
+    "\n" +
+    $('#reason-text').val() +
+    "\n" +
+    $('#due-date').val();
 
-    ${$('#reason-text').val()}
-
-    ${$('#due-date').val()}
-    ```
     var body = {
         "incident": {
             "type": "incident",
