@@ -21,35 +21,37 @@
             </div>
         </div>
         <div id="content">
-            <div class="row">
-                &nbsp;
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="netsuite-link">NetSuite link:</label>
-                    <input type="text" class="form-control" id="netsuite-link">
+            <form id="incident-form">
+                <div class="row">
+                    &nbsp;
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="reason-text">Reason for immediate attention:</label>
-                    <input type="textarea" class="form-control" id="reason-text">
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="netsuite-link">NetSuite link:</label>
+                        <input type="text" class="form-control" id="netsuite-link" required>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="due-date">When does this need to be complete:</label>
-                    <input type="text" class="form-control" id="due-date">
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="reason-text">Reason for immediate attention:</label>
+                        <input type="textarea" class="form-control" id="reason-text" required>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                &nbsp;
-            </div>
-            <div class="row">
-                <div align="right" class="col-md-8">
-                    <button type="button" id="go" class="btn btn-primary">Go</button>
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="due-date">When does this need to be complete:</label>
+                        <input type="text" class="form-control" id="due-date" required>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    &nbsp;
+                </div>
+                <div class="row">
+                    <div align="right" class="col-md-8">
+                        <button type="submit" id="go" class="btn btn-primary">Go</button>
+                    </div>
+                </div>
+            </form>
             <div class="row">
                 &nbsp;
             </div>

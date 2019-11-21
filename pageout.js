@@ -213,7 +213,12 @@ function main() {
     $('#login').hide();
 
     $('#incident-text').attr("placeholder", default_incident_summary);
-    $('#go').click(createIncident);
+
+    $('#incident-form').on('submit',function(e) {
+        e.preventDefault();
+        createIncident();
+    }
+
 }
 
 $(document).ready(main);
