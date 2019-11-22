@@ -185,6 +185,7 @@ function createIncident() {
 }
 
 function main() {
+    $('#login').html(`Sign in to ${subdomain} to get started`);
     $('#login').click(function(e) {
         requestOAuthToken();
     });
@@ -226,8 +227,6 @@ function main() {
                 $('#incident-form').hide();
                 $('#result').append(`<h2>You're logged in to ${user_subdomain}. Please log out and log in to ${subdomain}.</h2>`);
             }
-            
-            console.log(data);
         }
     }
 
