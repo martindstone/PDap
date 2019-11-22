@@ -180,7 +180,7 @@ function createIncident() {
                 contentType: "application/json",
                 data: sub_body,
                 success: function(sub_data) {
-                    $('#result').append(`Added you as a subscriber (${data.subscriber_requests[0].subscriber.email})`)
+                    $('#result').append(`Added you as a subscriber (${sub_data.subscriber_requests[0].subscriber.email})`)
                 }
             }
             PDRequest(token, `incidents/${incident_id}/subscriber_requests`, 'PUT', sub_options)
