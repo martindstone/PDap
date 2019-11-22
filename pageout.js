@@ -219,15 +219,13 @@ function main() {
 
     var token = getToken();
     var options = {
-        contentType: "application/json",
-        data: JSON.stringify(body),
         success: function(data) {
             $('#result').append(`<pre>${data}</pre>`);
             console.log(data);
         }
     }
 
-    PDRequest(token, 'users/me', 'POST', options)
+    PDRequest(token, 'users/me', 'GET', options)
 
     $('#incident-text').attr("placeholder", default_incident_summary);
 
