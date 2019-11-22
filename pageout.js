@@ -1,6 +1,7 @@
 var default_incident_summary = "Please help with an incident";
 var service_id = 'P6IVI77';
 var subdomain = 'pdt-kieran'
+var user_id;
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -173,7 +174,16 @@ function createIncident() {
         data: JSON.stringify(body),
         success: function(data) {
             $('#result').append(`Created <a target="_blank" href="${data.incident.html_url}">Incident #${data.incident.incident_number}</a><br>`);
-            console.log(data);
+            var incident_id = data.incident.id;
+            var sub_body = `{"requester":"${user_id}","subscriber_target":{"id":"${user_id}","type":"user_reference"}}`
+            var sub_options = {
+                contentType: "application/json",
+                data: sub_body,
+                success: function(sub_data) {
+                    $('#result').append(`Added you as a subscriber (${data.subscriber_requests[0].subscriber.email})`)
+                }
+            }
+            PDRequest(token, `incidents/${incident_id}/subscriber_requests`, 'PUT', sub_options)
         },
         error: function(data) {
             $('#result').append("Error creating incident<br>");
@@ -223,6 +233,7 @@ function main() {
     var options = {
         success: function(data) {
             user_subdomain = data.user.html_url.split(/[\/\.]/)[2];
+            user_id = data.user.id;
             if ( user_subdomain != subdomain ) {
                 $('#incident-form').hide();
                 $('#result').append(`<h2>You're logged in to ${user_subdomain}. Please log out and log in to ${subdomain}.</h2>`);
