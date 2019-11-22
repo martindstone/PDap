@@ -209,6 +209,7 @@ function main() {
             receiveOAuthToken(oauthResponseParams);
 
             $('#content').show();
+            $('#incident-form').show();
             $('#logout').show();
             $('#login').hide();
         }
@@ -220,7 +221,12 @@ function main() {
     var token = getToken();
     var options = {
         success: function(data) {
-            $('#result').append(`<pre>${data}</pre>`);
+            user_subdomain = data.user.html_url.split(/[\/\.]/)[2];
+            if ( user_subdomain != subdomain ) {
+                $('#incident-form').hide();
+                $('#result').append(`<h2>You're logged in to ${user_subdomain}. Please log out and log in to ${subdomain}.</h2>`);
+            }
+            
             console.log(data);
         }
     }
